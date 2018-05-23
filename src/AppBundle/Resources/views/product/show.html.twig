@@ -1,0 +1,15 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block body %}
+	<div class="row">
+	  <div class="col-md-12">
+	    <h1 class="featurette-heading">{{ product.title }}</h1>
+
+	    <p class="lead">{{ product.description }}</p>
+	    <p class="lead">{{ product.price }} грн</p>
+
+	  </div>		
+	</div>
+{% endblock %}
+
+{% block title %}{{ product.title }}{% endblock %}
