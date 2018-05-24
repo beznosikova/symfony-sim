@@ -1,13 +1,14 @@
 {% extends '@App/layout.html.twig' %}
 
 {% block body %}
-    <h1>Page not found</h1>
+<div class="col-md-12">
+    <h1 class="featurette-heading">Page not found</h1>
 
-    <p>
+    <p class="alert alert-danger">
         The requested page couldn't be located. Checkout for any URL
         misspelling or <a href="{{ path('homepage') }}">return to the homepage</a>.
     </p>
-    <p>404 custom : {{ status_code }}</p>
+</div>
 {% endblock %}
 
 {% block stylesheets %}

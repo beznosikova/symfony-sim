@@ -31,6 +31,9 @@
               <a class="nav-link" href="{{ path('product_list') }}">Products</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="{{ path('category_list') }}">Categories</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="#">Contact us</a>
             </li>
             <li class="nav-item dropdown">
@@ -55,8 +58,12 @@
         {% block slider %}{% endblock %}
 
       <div class="container marketing">
-        {% block body %}{% endblock %}
+        <div class="row">
+          {% block body %}{% endblock %}
+        </div>
       </div>
+
+      {% block featurette %}{% endblock %}
       <!-- FOOTER -->
       <footer class="container">
         <p class="float-right"><a href="#">Back to top</a></p>

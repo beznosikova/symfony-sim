@@ -1,0 +1,25 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block body %}
+    <div class="col-md-12">
+        <h1 class="featurette-heading">Product list of category: {{ category.title }}</h1>
+
+        {% if category.description %}
+            <p class="lead">{{ category.description | raw}}</p>
+        {% endif %}
+
+        {% if products %}
+            {% for key, product in products %}
+                {{ loop.index }} <a href="{{ path('product_page', {'alias': product.alias}) }}"><b>{{ product.title }}</b></a> {{ product.price }} грн <br>
+                {{ product.description | raw }}
+                <br><br>
+            {% endfor %}
+        {% else %}
+            <p>Category is empty</p>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}

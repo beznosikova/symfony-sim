@@ -1,14 +1,14 @@
 {% extends '@App/layout.html.twig' %}
 
 {% block body %}
-	<div class="row">
-	  <div class="col-md-12">
-	    <h1 class="featurette-heading">{{ product.title }}</h1>
+	<div class="col-md-12">
+		<h1 class="featurette-heading">{{ product.title }}</h1>
 
-	    <p class="lead">{{ product.description }}</p>
-	    <p class="lead">{{ product.price }} грн</p>
-
-	  </div>		
+		<p class="lead">{{ product.description|raw }}</p>
+		<p class="lead">{{ product.price }} грн</p>
+		{% if  product.category %}
+		<p><a href="{{ path('product_list') }}">All products from category {{ product.category.title }}</a></p>
+		{%  endif %}
 	</div>
 {% endblock %}
 

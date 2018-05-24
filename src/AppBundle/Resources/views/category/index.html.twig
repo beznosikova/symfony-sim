@@ -1,0 +1,19 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block body %}
+	  <div class="col-md-12">
+	    <h1 class="featurette-heading">Categories list</h1>
+
+		{% for key, category in categories %}
+			{{ loop.index }}
+			<a href="{{ path('product_by_category', {'category_alias': category.alias}) }}">
+				<b>{{ category.title }}</b>
+			</a>
+			<br><br>
+		{% endfor %}
+	  </div>		
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}

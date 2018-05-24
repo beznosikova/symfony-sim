@@ -64,11 +64,11 @@ class Product
     private $alias;
 
     /**
-     * @var string
+     * @var Category
      *
-     * @ORM\Column(name="category", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category")
      */
-    private $category='category';
+    private $category;
 
     /**
      * Get id
@@ -179,7 +179,7 @@ class Product
     /**
      * Set category
      *
-     * @param string $category
+     * @param Category $category
      *
      * @return Product
      */
@@ -193,7 +193,7 @@ class Product
     /**
      * Get category
      *
-     * @return string
+     * @return Category|null
      */
     public function getCategory()
     {

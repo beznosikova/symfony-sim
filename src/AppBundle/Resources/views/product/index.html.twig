@@ -1,19 +1,17 @@
 {% extends '@App/layout.html.twig' %}
 
 {% block body %}
-	<div class="row">
 	  <div class="col-md-12">
 	    <h1 class="featurette-heading">Products list</h1>
 
 	    <p class="lead">Category info</p>
 
 		{% for key, product in products %}
-			{{ loop.index }} <a href=""><b>{{ product.title }}</b></a> {{ product.price }} грн <br>
+			{{ loop.index }} <a href="{{ path('product_page', {'alias': product.alias}) }}"><b>{{ product.title }}</b></a> {{ product.price }} грн <br>
 			{{ product.description | raw }}
 			<br><br>
 		{% endfor %}
 	  </div>		
-	</div>
 {% endblock %}
 
 {% block stylesheets %}
