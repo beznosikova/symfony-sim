@@ -1,0 +1,24 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block body %}
+    <div class="col-md-12">
+        <h1 class="featurette-heading">Contact us</h1>
+
+        {{ form_start(feedback_form) }}
+            {{ form_row(feedback_form.name) }}
+            {{ form_row(feedback_form.email) }}
+        {{ form_end(feedback_form) }}
+
+{#        <p class="lead">Category info</p>#}
+
+{#        {% for key, product in products %}
+            {{ loop.index }} <a href="{{ path('product_page', {'alias': product.alias}) }}"><b>{{ product.title }}</b></a> {{ product.price }} грн <br>
+            {{ product.description | raw }}
+            <br><br>
+        {% endfor %}#}
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
