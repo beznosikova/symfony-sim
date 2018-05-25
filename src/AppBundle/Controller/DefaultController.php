@@ -7,8 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Service\MessageGenerator;
 
 class DefaultController extends Controller
 {
@@ -18,6 +18,9 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        $messageGenerator = $this->get('happy.message')->getHappyMessage();
+        dump($messageGenerator);
+
         $name = "Tanya";
         // return $this->render('@App/default/index.html.twig', compact('name'));
         return compact('name');
