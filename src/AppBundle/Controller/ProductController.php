@@ -5,10 +5,10 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Category;
-// use Symfony\Component\HttpFoundation\Response;
-// use Symfony\Component\HttpFoundation\JsonResponse;
+ use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {
@@ -70,6 +70,21 @@ class ProductController extends Controller
 
         return compact('products', 'category');
     }
+
+    /**
+     * @Route("/api/products/", name="product_api")
+     */
+    public function apiIndex(Request $request)
+    {
+        $products = $this
+            ->getDoctrine()
+            ->getRepository('AppBundle:Product')
+            ->findActive()
+        ;
+
+        return new JsonResponse($products);
+    }
+
 
     /**
      * @Route("/test", name="test")

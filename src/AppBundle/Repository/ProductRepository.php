@@ -21,7 +21,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('active', 1)
             ->orderBy('product.price', 'ASC')
             ->getQuery()
-            ->getResult()
+            ->getArrayResult()
             ;
     }
 

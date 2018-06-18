@@ -18,8 +18,8 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $messageGenerator = $this->get('happy.message')->getHappyMessage();
-        dump($messageGenerator);
+//        $messageGenerator = $this->get('happy.message')->getHappyMessage();
+//        dump($messageGenerator);
 
         $name = "Tanya";
         // return $this->render('@App/default/index.html.twig', compact('name'));
