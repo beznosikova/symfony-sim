@@ -5,17 +5,17 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\CoreBundle\Form\Type\BooleanType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class CategoryAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('title', TextType::class);
+        $formMapper->add('active', CheckboxType::class, ['required' => false]);
         $formMapper->add('alias', TextType::class);
+        $formMapper->add('title', TextType::class);
         $formMapper->add('description', TextType::class);
-        $formMapper->add('active', BooleanType::class);
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
