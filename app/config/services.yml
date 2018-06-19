@@ -38,7 +38,7 @@ services:
         class: AppBundle\Service\MessageGenerator
         public: true
 
-    # Admin soanata
+    # Admin sonata
     admin.category:
         class: AppBundle\Admin\CategoryAdmin
         arguments: [~, AppBundle\Entity\Category, ~]

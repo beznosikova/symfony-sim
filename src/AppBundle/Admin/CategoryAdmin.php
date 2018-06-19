@@ -14,10 +14,12 @@ class CategoryAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('active', CheckboxType::class, ['required' => false]);
-        $formMapper->add('alias', TextType::class);
-        $formMapper->add('title', TextType::class);
-        $formMapper->add('description', TextareaType::class, ['required' => false]);
+        $formMapper
+            ->add('active', CheckboxType::class, ['required' => false])
+            ->add('alias', TextType::class)
+            ->add('title', TextType::class)
+            ->add('description', TextareaType::class, ['required' => false])
+        ;
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -27,11 +29,13 @@ class CategoryAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('id');
-        $listMapper->addIdentifier('active');
-        $listMapper->addIdentifier('alias');
-        $listMapper->addIdentifier('title');
-        $listMapper->addIdentifier('description');
+        $listMapper
+            ->add('id')
+            ->add('active')
+            ->addIdentifier('alias')
+            ->addIdentifier('title')
+            ->addIdentifier('description')
+        ;
     }
 
     public function toString($object)

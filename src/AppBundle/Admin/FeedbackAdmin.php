@@ -8,11 +8,11 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Feedback;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\CoreBundle\Form\Type\BooleanType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -39,5 +39,12 @@ class FeedbackAdmin extends AbstractAdmin
         $listMapper->addIdentifier('name');
         $listMapper->addIdentifier('email');
         $listMapper->addIdentifier('message');
+    }
+
+    public function toString($object)
+    {
+        return $object instanceof Feedback
+            ? $object->getName().' - '.$object->getEmail()
+            : 'Feedback';
     }
 }
