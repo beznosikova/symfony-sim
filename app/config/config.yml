@@ -77,10 +77,21 @@ sonata_block:
             contexts: [admin]
 
 sonata_admin:
+    show_mosaic_button:   false
     templates:
         # other configuration options
         search:              '@SonataAdmin/Core/search.html.twig'
         search_result_block: '@SonataAdmin/Block/block_search_result.html.twig'
+        list:                       '@SonataAdmin/CRUD/list.html.twig'
+        action:                     '@SonataAdmin/CRUD/action.html.twig'
+        select:                     '@SonataAdmin/CRUD/list__select.html.twig'
+        list_block:                 '@SonataAdmin/Block/block_admin_list.html.twig'
+        short_object_description:   '@SonataAdmin/Helper/short-object-description.html.twig'
+        batch:                      '@SonataAdmin/CRUD/list__batch.html.twig'
+        inner_list_row:             '@SonataAdmin/CRUD/list_inner_row.html.twig'
+        base_list_field:            '@SonataAdmin/CRUD/base_list_field.html.twig'
+        pager_links:                '@SonataAdmin/Pager/links.html.twig'
+        pager_results:              '@SonataAdmin/Pager/results.html.twig'
     global_search:
         empty_boxes: hide
 
