@@ -78,6 +78,7 @@ sonata_block:
 
 sonata_admin:
     show_mosaic_button:   false
+    title:      Admin
     templates:
         # other configuration options
         search:              '@SonataAdmin/Core/search.html.twig'

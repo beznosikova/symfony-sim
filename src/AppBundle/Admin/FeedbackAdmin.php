@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: User
- * Date: 18.06.2018
- * Time: 16:18
- */
-
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\Feedback;
@@ -21,24 +14,39 @@ class FeedbackAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('name', TextType::class);
-        $formMapper->add('email', EmailType::class);
-        $formMapper->add('message', TextareaType::class);
+        $formMapper
+            ->add('name', TextType::class)
+            ->add('email', EmailType::class)
+            ->add('message', TextareaType::class)
+        ;
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper->add('email');
-        $datagridMapper->add('name');
+        $datagridMapper
+            ->add('email')
+            ->add('name')
+        ;
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('id');
-        $listMapper->addIdentifier('created');
-        $listMapper->addIdentifier('name');
-        $listMapper->addIdentifier('email');
-        $listMapper->addIdentifier('message');
+        $listMapper
+            ->addIdentifier('id')
+            ->addIdentifier('created', null, [
+                'format' => 'Y-m-d H:i'
+            ])
+            ->addIdentifier('name')
+            ->addIdentifier('email')
+            ->addIdentifier('message')
+            ->add('_action', null, [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ])
+        ;
     }
 
     public function toString($object)

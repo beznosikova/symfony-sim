@@ -26,7 +26,7 @@ class ProductsAdmin extends AbstractAdmin
                     ->add('alias')
                     ->add('title')
                     ->add('description')
-                    ->add('category.title')
+                    ->add('category.title', null, ['label' => 'Category'])
                 ->end()
             ->end()
             ->tab('e-commerce')
@@ -71,6 +71,7 @@ class ProductsAdmin extends AbstractAdmin
             ->add('category', null, [], EntityType::class, [
                 'class'    => Category::class,
                 'choice_label' => 'title',
+                'multiple' => true,
             ])
         ;
     }

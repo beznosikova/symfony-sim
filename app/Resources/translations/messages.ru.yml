@@ -1,0 +1,10 @@
+default: default_ru
+Category: Категории
+Product: Продукты
+Feedback: Сообщения клиентов
+Category List: Список категорий
+Id: Id
+Alias: Alias
+Title: Название
+Active: Активность
+Description: Описание
