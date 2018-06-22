@@ -1,10 +1,17 @@
-default: default_ru
 Category: Категории
 Product: Продукты
+Page: Страницы
 Feedback: Сообщения клиентов
+
 Category List: Список категорий
 Id: Id
 Alias: Alias
 Title: Название
 Active: Активность
 Description: Описание
+
+Page List: Список страниц
+Sort: Сортировка
+Seo Description: СЕО Description
+Main Page: Главная
+Action: Действия

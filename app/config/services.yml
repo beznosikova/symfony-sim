@@ -54,6 +54,13 @@ services:
             - { name: sonata.admin, manager_type: orm, label: Product }
         public: true
 
+    admin.pages:
+        class: AppBundle\Admin\PageAdmin
+        arguments: [~, AppBundle\Entity\Page, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Page }
+        public: true
+
     admin.feedback:
         class: AppBundle\Admin\FeedbackAdmin
         arguments: [~, AppBundle\Entity\Feedback, ~]
