@@ -71,6 +71,13 @@ class Product
     private $category;
 
     /**
+     * @var Image
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media")
+     */
+    private $image;
+
+    /**
      * Get id
      *
      * @return int
@@ -246,5 +253,29 @@ class Product
     public function getAlias()
     {
         return $this->alias;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $image
+     *
+     * @return Product
+     */
+    public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

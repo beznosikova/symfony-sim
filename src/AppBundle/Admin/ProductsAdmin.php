@@ -27,6 +27,7 @@ class ProductsAdmin extends AbstractAdmin
                     ->add('title')
                     ->add('description')
                     ->add('category.title', null, ['label' => 'Category'])
+                    ->add('image')
                 ->end()
             ->end()
             ->tab('e-commerce')
@@ -52,7 +53,12 @@ class ProductsAdmin extends AbstractAdmin
                         'class' => Category::class,
                         'property' => 'title',
                     ])
-                ->end()
+                    ->add('image',
+                        'sonata_type_model_list',
+                        [],
+                        ['link_parameters' => ['context' => 'default']]
+                    )
+                     ->end()
             ->end()
             ->tab('e-commerce')
                 ->with(null)
