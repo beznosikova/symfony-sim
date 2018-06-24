@@ -2,13 +2,15 @@
 
 namespace AppBundle\Controller;
 
+use App\Utils\CustomNormalizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Category;
- use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ProductController extends Controller
 {
@@ -31,7 +33,7 @@ class ProductController extends Controller
      * @Route("/products/{alias}/", name="product_page")
      * @Template()
      */
-    public function showAction($alias)
+    public function showAction($alias, SerializerInterface $serializer)
     {
         $product = $this
             ->getDoctrine()
@@ -42,6 +44,29 @@ class ProductController extends Controller
         if (!$product){
             throw $this->createNotFoundException();
         }
+
+        dump($product);
+
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+
+        $jsonContent = $serializer->normalize($product, null, [
+            'attributes' => [
+                'id',
+                'title',
+                'category' => ['title'],
+                'image' => ['name']
+            ]
+        ]);
+        dump($jsonContent);
+//        $provider = $this->container->get('sonata.media.provider.file');
+//        $media = $product->getImage();
+
+//        dump($provider->getReferenceImage($media));
+//        dump($provider->getReferenceFile($media));
+//        dump($provider->generatePublicUrl($media, 'reference'));
+//        dump($provider->getHelperProperties($media, 'reference'));
+//        dump($provider->getCdn());
 
         return compact('product');
     }
@@ -74,7 +99,7 @@ class ProductController extends Controller
     /**
      * @Route("/api/products/", name="product_api")
      */
-    public function apiIndex(Request $request)
+    public function apiIndex(SerializerInterface $serializer)
     {
         $products = $this
             ->getDoctrine()
@@ -82,7 +107,11 @@ class ProductController extends Controller
             ->findActive()
         ;
 
-        return new JsonResponse($products);
+        $customNormalizer = $this->get('custom.normalizer');
+        $provider = $this->container->get('sonata.media.provider.file');
+        $productsArray = $customNormalizer->productsNormalize($products, $serializer, $provider);
+
+        return new JsonResponse($productsArray);
     }
 
 

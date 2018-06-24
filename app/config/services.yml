@@ -39,6 +39,10 @@ services:
         class: AppBundle\Service\MessageGenerator
         public: true
 
+    custom.normalizer:
+        class: AppBundle\Service\CustomNormalizer
+        public: true
+
     # Admin sonata
     admin.category:
         class: AppBundle\Admin\CategoryAdmin
