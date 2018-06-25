@@ -55,5 +55,17 @@ class ApiController extends Controller
         return new JsonResponse($customNormalizer->productsNormalize($products, $serializer, $provider));
     }
 
+    /**
+     * @Route("/api/categories/")
+     */
+    public function apiCategories(SerializerInterface $serializer)
+    {
+        $categories = $this
+            ->getDoctrine()
+            ->getRepository('AppBundle:Category')
+            ->findByProductsExisting()
+        ;
 
+        return new JsonResponse($serializer->normalize($categories));
+    }
 }

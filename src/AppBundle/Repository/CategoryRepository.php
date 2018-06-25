@@ -22,4 +22,24 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
             ->getOneOrNullResult()
             ;
     }
+
+    public function findByProductsExisting()
+    {
+        return $this
+            ->createQueryBuilder('category')
+            ->leftJoin(
+                'AppBundle:Product',
+                'product',
+                \Doctrine\ORM\Query\Expr\Join::WITH,
+                'category = product.category'
+            )
+            ->where("product.active = :active")
+            ->andWhere('category.active = :active')
+            ->andWhere('product.category = category')
+            ->setParameter('active', 1)
+            ->orderBy('category.title', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }
