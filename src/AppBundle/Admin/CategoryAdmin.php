@@ -6,9 +6,12 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class CategoryAdmin extends AbstractAdmin
 {
@@ -16,15 +19,28 @@ class CategoryAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('active', CheckboxType::class, ['required' => false])
+            ->add('sort', IntegerType::class)
             ->add('alias', TextType::class)
             ->add('title', TextType::class)
             ->add('description', TextareaType::class, ['required' => false])
+            ->add('mainCategory', ModelType::class, [
+                'class' => Category::class,
+                'property' => 'title',
+                'required' => false
+            ])
         ;
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper->add('title');
+        $datagridMapper
+            ->add('title')
+            ->add('mainCategory', null, [], EntityType::class, [
+                'class'    => Category::class,
+                'choice_label' => 'title',
+                'multiple' => true,
+            ])
+        ;
     }
 
     protected function configureListFields(ListMapper $listMapper)
@@ -32,9 +48,19 @@ class CategoryAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->add('active')
+            ->add('sort', null, [
+                'editable' => true
+            ])
             ->addIdentifier('alias')
             ->addIdentifier('title')
-            ->addIdentifier('description')
+            ->add('mainCategory.title')
+            ->add('_action', null, [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ])
         ;
     }
 

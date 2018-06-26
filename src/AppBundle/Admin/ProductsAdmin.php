@@ -58,7 +58,7 @@ class ProductsAdmin extends AbstractAdmin
                         [],
                         ['link_parameters' => ['context' => 'default']]
                     )
-                     ->end()
+                ->end()
             ->end()
             ->tab('e-commerce')
                 ->with(null)

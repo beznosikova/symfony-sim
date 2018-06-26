@@ -35,9 +35,9 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
             )
             ->where("product.active = :active")
             ->andWhere('category.active = :active')
-            ->andWhere('product.category = category')
             ->setParameter('active', 1)
-            ->orderBy('category.title', 'ASC')
+            ->addOrderBy('category.sort', 'ASC')
+            ->addOrderBy('category.title', 'ASC')
             ->getQuery()
             ->getResult()
             ;

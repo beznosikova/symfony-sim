@@ -50,6 +50,20 @@ class Category
     private $description;
 
     /**
+     * @var Category
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category")
+     */
+    private $mainCategory;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="sort", type="integer", options={"default":100})
+     */
+    private $sort;
+
+    /**
      * Get id
      *
      * @return int
@@ -153,5 +167,53 @@ class Category
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set mainCategory
+     *
+     * @param \AppBundle\Entity\Category $mainCategory
+     *
+     * @return Category
+     */
+    public function setMainCategory(\AppBundle\Entity\Category $mainCategory = null)
+    {
+        $this->mainCategory = $mainCategory;
+
+        return $this;
+    }
+
+    /**
+     * Get mainCategory
+     *
+     * @return \AppBundle\Entity\Category
+     */
+    public function getMainCategory()
+    {
+        return $this->mainCategory;
+    }
+
+    /**
+     * Set sort
+     *
+     * @param integer $sort
+     *
+     * @return Category
+     */
+    public function setSort($sort)
+    {
+        $this->sort = $sort;
+
+        return $this;
+    }
+
+    /**
+     * Get sort
+     *
+     * @return integer
+     */
+    public function getSort()
+    {
+        return $this->sort;
     }
 }
