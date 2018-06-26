@@ -68,4 +68,18 @@ class ApiController extends Controller
 
         return new JsonResponse($serializer->normalize($categories));
     }
+
+    /**
+     * @Route("/api/pages/")
+     */
+    public function apiPages(SerializerInterface $serializer)
+    {
+        $categories = $this
+            ->getDoctrine()
+            ->getRepository('AppBundle:Page')
+            ->findBy(['active'=>true], ['sort' => 'ASC'])
+        ;
+
+        return new JsonResponse($serializer->normalize($categories));
+    }
 }
