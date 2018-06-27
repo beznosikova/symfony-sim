@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome to React Symfony 4 Starter!{% endblock %}</title>
+        {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('/bundles/app/static/css/main.11916b58.css') }}">
+        {% endblock %}
+    </head>
+    <body>
+        <header>
+            <h1>React + Symfony Starter</h1>
+        </header>
+        {% block body %}{% endblock %}
+        <footer class="footer">
+            <p>Check out the full post</p>
+        </footer>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

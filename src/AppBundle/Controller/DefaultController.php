@@ -12,18 +12,28 @@ use AppBundle\Service\MessageGenerator;
 
 class DefaultController extends Controller
 {
+
     /**
      * @Route("/", name="homepage")
      * @Template()
      */
-    public function indexAction()
-    {
-//        $messageGenerator = $this->get('happy.message')->getHappyMessage();
-//        dump($messageGenerator);
+    /*    public function indexAction()
+        {
+    //        $messageGenerator = $this->get('happy.message')->getHappyMessage();
+    //        dump($messageGenerator);
 
-        $name = "Tanya";
-        // return $this->render('@App/default/index.html.twig', compact('name'));
-        return compact('name');
+            $name = "Tanya";
+            // return $this->render('@App/default/index.html.twig', compact('name'));
+            return compact('name');
+        }
+    */
+
+    /**
+     * @Route("/", name="homepage")
+     */
+    public function reactAction()
+    {
+        return $this->render('@App/default/react.html.twig');
     }
 
     /**
