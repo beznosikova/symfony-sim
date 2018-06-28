@@ -59,6 +59,6 @@ class CustomNormalizer
                 $category = array_merge($category, $firstElement['mainCategory']);
             }
         }
-        return $categoriesArray;
+        return array_values($categoriesArray);
     }
 }
