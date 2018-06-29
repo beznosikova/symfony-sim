@@ -38,6 +38,7 @@ class CustomNormalizer
                 'attributes' => [
                     'id',
                     'title',
+                    'h1',
                     'description',
                     'alias',
                     'active',

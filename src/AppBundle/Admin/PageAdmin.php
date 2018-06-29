@@ -44,6 +44,7 @@ class PageAdmin extends AbstractAdmin
                     ->add('main_page', CheckboxType::class, ['required' => false])
                     ->add('alias', TextType::class)
                     ->add('title', TextType::class)
+                    ->add('h1', TextType::class)
                     ->add('description', CKEditorType::class)
                     ->add('sort', NumberType::class)
                 ->end()

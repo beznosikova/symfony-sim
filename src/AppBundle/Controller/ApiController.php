@@ -55,12 +55,35 @@ class ApiController extends Controller
      */
     public function apiPages(SerializerInterface $serializer)
     {
-        $categories = $this
+        $pages = $this
             ->getDoctrine()
             ->getRepository('AppBundle:Page')
             ->findBy(['active'=>true], ['sort' => 'ASC'])
         ;
 
-        return new JsonResponse($serializer->normalize($categories));
+        return new JsonResponse($serializer->normalize($pages));
+    }
+
+    /**
+     * @Route("/api/links/")
+     */
+    public function apiLinks(SerializerInterface $serializer)
+    {
+        $pagesObject = $this
+            ->getDoctrine()
+            ->getRepository('AppBundle:Page')
+            ->findBy(['active'=>true], ['sort' => 'ASC'])
+        ;
+        $pages = $serializer->normalize($pagesObject);
+
+        $categoriesObject = $this
+            ->getDoctrine()
+            ->getRepository('AppBundle:Category')
+            ->findByProductsExisting()
+        ;
+        $customNormalizer = $this->get('custom.normalizer');
+        $categories = $customNormalizer->categoriesNormalize($categoriesObject, $serializer);
+
+        return new JsonResponse(compact('pages', 'categories'));
     }
 }

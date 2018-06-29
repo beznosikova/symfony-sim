@@ -22,6 +22,7 @@ class CategoryAdmin extends AbstractAdmin
             ->add('sort', IntegerType::class)
             ->add('alias', TextType::class)
             ->add('title', TextType::class)
+            ->add('h1', TextType::class)
             ->add('description', TextareaType::class, ['required' => false])
             ->add('mainCategory', ModelType::class, [
                 'class' => Category::class,

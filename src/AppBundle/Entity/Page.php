@@ -31,6 +31,13 @@ class Page
     /**
      * @var string
      *
+     * @ORM\Column(name="h1", type="string", length=255, unique=true)
+     */
+    private $h1;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="alias", type="string", length=255, unique=true)
      */
     private $alias;
@@ -246,5 +253,29 @@ class Page
     public function getSort()
     {
         return $this->sort;
+    }
+
+    /**
+     * Set h1
+     *
+     * @param string $h1
+     *
+     * @return Page
+     */
+    public function setH1($h1)
+    {
+        $this->h1 = $h1;
+
+        return $this;
+    }
+
+    /**
+     * Get h1
+     *
+     * @return string
+     */
+    public function getH1()
+    {
+        return $this->h1;
     }
 }
