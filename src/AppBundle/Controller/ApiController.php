@@ -9,6 +9,21 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class ApiController extends Controller
 {
     /**
+     * @Route("/api/products/search/{searchWord}/")
+     */
+    public function apiSearch($searchWord, SerializerInterface $serializer)
+    {
+        $products = $this
+            ->getDoctrine()
+            ->getRepository('AppBundle:Product')
+            ->findBySearchWord($searchWord)
+        ;
+        $customNormalizer = $this->get('custom.normalizer');
+        $provider = $this->container->get('sonata.media.provider.file');
+        return new JsonResponse($customNormalizer->productsNormalize($products, $serializer, $provider));
+    }
+
+    /**
      * @Route(
      *     "/api/products/{category_alias}/",
      *     defaults={

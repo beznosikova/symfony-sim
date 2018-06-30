@@ -54,6 +54,20 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         ;
     }
 
+    public function findBySearchWord($searchWord)
+    {
+        return $this
+            ->createQueryBuilder('product')
+            ->where('product.active = :active')
+            ->setParameter('active', 1)
+            ->andWhere('product.title LIKE :searchWord')
+            ->setParameter('searchWord', '%'.$searchWord.'%')
+            ->orderBy('product.title', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     public function findByCategoryByPage(Category $category, $page, $sort)
     {
         extract($sort);
