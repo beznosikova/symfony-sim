@@ -54,15 +54,18 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         ;
     }
 
-    public function findBySearchWord($searchWord)
+    public function findBySearchWord($searchWord, $page, $sort)
     {
+        extract($sort);
         return $this
             ->createQueryBuilder('product')
             ->where('product.active = :active')
             ->setParameter('active', 1)
             ->andWhere('product.title LIKE :searchWord')
             ->setParameter('searchWord', '%'.$searchWord.'%')
-            ->orderBy('product.title', 'ASC')
+            ->orderBy('product.'.$sortName, strtoupper($sortDirection))
+            ->setFirstResult(self::PRODUCT_LIMIT * ($page-1)) // set the offset
+            ->setMaxResults(self::PRODUCT_LIMIT) // set the limit
             ->getQuery()
             ->getResult()
             ;

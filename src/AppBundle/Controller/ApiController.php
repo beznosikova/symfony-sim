@@ -9,14 +9,38 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class ApiController extends Controller
 {
     /**
-     * @Route("/api/products/search/{searchWord}/")
+     * @Route("/api/search/{searchWord}/",
+     *     defaults={
+     *          "page":"1",
+     *          "sortName":"title",
+     *          "sortDirection":"asc"
+     *      })
+     * @Route(
+     *     "/api/search/{searchWord}/{page}/",
+     *     requirements={"page":"\d+"},
+     *     defaults={
+     *          "sortName":"title",
+     *          "sortDirection":"asc"
+     *      })
+     * @Route(
+     *     "/api/search/{searchWord}/{page}/{sortName}-{sortDirection}/",
+     *     requirements={
+     *          "page":"\d+",
+     *          "sortName":"title|price",
+     *          "sortDirection":"asc|desc"
+     *      })
      */
-    public function apiSearch($searchWord, SerializerInterface $serializer)
+    public function apiSearch(
+        $searchWord,
+        $page,
+        $sortName,
+        $sortDirection,
+        SerializerInterface $serializer)
     {
         $products = $this
             ->getDoctrine()
             ->getRepository('AppBundle:Product')
-            ->findBySearchWord($searchWord)
+            ->findBySearchWord($searchWord, $page, compact('sortName', 'sortDirection'))
         ;
         $customNormalizer = $this->get('custom.normalizer');
         $provider = $this->container->get('sonata.media.provider.file');
