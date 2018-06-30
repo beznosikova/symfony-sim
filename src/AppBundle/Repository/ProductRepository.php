@@ -2,7 +2,6 @@
 
 namespace AppBundle\Repository;
 use AppBundle\Entity\Category;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * ProductRepository
@@ -12,7 +11,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
-    const PRODUCT_LIMIT = 2;
+    const PRODUCT_LIMIT = 6;
 
     public function findActive()
     {
@@ -49,30 +48,26 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('active', 1)
             ->andWhere('product.category = :category')
             ->setParameter('category', $category)
+            ->orderBy('product.title', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
 
-    public function findByCategoryByPage(Category $category, $page = 1)
+    public function findByCategoryByPage(Category $category, $page, $sort)
     {
-        $query = $this
+        extract($sort);
+        return $this
             ->createQueryBuilder('product')
             ->where('product.active = :active')
             ->setParameter('active', 1)
             ->andWhere('product.category = :category')
             ->setParameter('category', $category)
-            ->getQuery();
-
-        $paginator = new Paginator($query);
-        $paginator
-            ->getQuery()
+            ->orderBy('product.'.$sortName, strtoupper($sortDirection))
             ->setFirstResult(self::PRODUCT_LIMIT * ($page-1)) // set the offset
-            ->setMaxResults(self::PRODUCT_LIMIT); // set the limit
-
-//        $totalItems = count($paginator);
-//        $pagesCount = ceil($totalItems / self::PRODUCT_LIMIT);
-
-        return  $paginator;
+            ->setMaxResults(self::PRODUCT_LIMIT) // set the limit
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }

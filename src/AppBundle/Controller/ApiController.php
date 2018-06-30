@@ -9,11 +9,36 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class ApiController extends Controller
 {
     /**
-     * @Route("/api/products/{category_alias}/", defaults={"page" = "1"})
-     * @Route("/api/products/{category_alias}/{page}/", requirements={"page"="\d+"})
+     * @Route(
+     *     "/api/products/{category_alias}/",
+     *     defaults={
+     *          "page":"1",
+     *          "sortName":"title",
+     *          "sortDirection":"asc"
+     *      })
+     * @Route(
+     *     "/api/products/{category_alias}/{page}/",
+     *     requirements={"page":"\d+"},
+     *     defaults={
+     *          "sortName":"title",
+     *          "sortDirection":"asc"
+     *      })
+     * @Route(
+     *     "/api/products/{category_alias}/{page}/{sortName}-{sortDirection}/",
+     *     requirements={
+     *          "page":"\d+",
+     *          "sortName":"title|price",
+     *          "sortDirection":"asc|desc"
+     *      })
      */
-    public function apiProductsByCategory($category_alias, $page, SerializerInterface $serializer)
-    {
+    public function apiProductsByCategory(
+        $category_alias,
+        $page,
+        $sortName,
+        $sortDirection,
+        SerializerInterface $serializer
+    ) {
+
         $category = $this
             ->getDoctrine()
             ->getRepository('AppBundle:Category')
@@ -27,7 +52,7 @@ class ApiController extends Controller
         $products = $this
             ->getDoctrine()
             ->getRepository('AppBundle:Product')
-            ->findByCategoryByPage($category, $page)
+            ->findByCategoryByPage($category, $page, compact('sortName', 'sortDirection'))
         ;
 
         $customNormalizer = $this->get('custom.normalizer');
