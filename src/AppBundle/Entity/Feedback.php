@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Feedback
@@ -25,6 +26,14 @@ class Feedback
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 20,
+     *      minMessage = "Имя должно быть длиннее {{ limit }} символов",
+     *      maxMessage = "Очень длинное имя"
+     * )
      */
     private $name;
 
@@ -32,6 +41,11 @@ class Feedback
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
+     *
+     * @Assert\Email(
+     *     message = "Вы ввели не существующий '{{ value }}' email.",
+     *     checkMX = true
+     * )
      */
     private $email;
 
@@ -39,6 +53,14 @@ class Feedback
      * @var string
      *
      * @ORM\Column(name="message", type="text")
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 500,
+     *      minMessage = "Сообщение должно быть длиннее",
+     *      maxMessage = "Ощень длинное сообщение"
+     * )
      */
     private $message;
 

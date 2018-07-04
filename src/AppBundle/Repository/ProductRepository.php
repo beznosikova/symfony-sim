@@ -79,7 +79,9 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->where('product.active = :active')
             ->setParameter('active', 1)
             ->andWhere('product.category = :category')
+            ->andWhere('product.reserve = :reserve')
             ->setParameter('category', $category)
+            ->setParameter('reserve', 0)
             ->orderBy('product.'.$sortName, strtoupper($sortDirection))
             ->setFirstResult(self::PRODUCT_LIMIT * ($page-1)) // set the offset
             ->setMaxResults(self::PRODUCT_LIMIT) // set the limit

@@ -1,10 +1,16 @@
 <?php
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Feedback;
+use AppBundle\Entity\OrderSim;
+use AppBundle\Form\FeedbackType;
+use AppBundle\Form\OrderSimType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class ApiController extends Controller
 {
@@ -149,5 +155,63 @@ class ApiController extends Controller
         $categories = $customNormalizer->categoriesNormalize($categoriesObject, $serializer);
 
         return new JsonResponse(compact('pages', 'categories'));
+    }
+
+    /**
+     * @Route("/api/order/")
+     * @Method({"POST", "OPTIONS"})
+     */
+    public function apiOrder(Request $request, SerializerInterface $serializer)
+    {
+        $data = json_decode($request->getContent(), true);
+        $data['list'] = json_encode($data['list']);
+
+        $orderSim = new OrderSim();
+        $form = $this->createForm(OrderSimType::class, $orderSim);
+        $form->submit($data);
+
+        $validator = $this->get('validator');
+        $errors = $validator->validate($orderSim);
+
+        if (count($errors) > 0) {
+            $errorsString = (string) $errors;
+            return new JsonResponse(['error' => $errorsString]);
+        } else {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($orderSim);
+            $em->flush();
+            return new JsonResponse(['data' => 'data are saved'], 200);
+        }
+    }
+
+    /**
+     * @Route("/api/feedback/")
+     */
+    public function apiFeedback(Request $request, SerializerInterface $serializer)
+    {
+//        $data = json_decode($request->getContent(), true);
+        $data = [
+            "name" => "Kolya",
+            "email" => "Kolya@rambler.ru",
+            "message" => "Kolya hhhh.hhhret ert ert ert ert ert ert ert ertert",
+        ];
+
+        $feedback = new Feedback();
+        $form = $this->createForm(FeedbackType::class, $feedback);
+        $form->submit($data);
+
+        $validator = $this->get('validator');
+        $errors = $validator->validate($feedback);
+
+        if (count($errors) > 0) {
+            $errorsString = (string) $errors;
+            return new JsonResponse(['error' => $errorsString], 205);
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($feedback);
+            $em->flush();
+            return new JsonResponse(['data' => 'data are saved'], 200);
+        }
     }
 }
