@@ -159,11 +159,17 @@ class ApiController extends Controller
 
     /**
      * @Route("/api/order/")
-     * @Method({"POST", "OPTIONS"})
+     * @Method({"OPTIONS", "POST"})
      */
     public function apiOrder(Request $request, SerializerInterface $serializer)
     {
         $data = json_decode($request->getContent(), true);
+        if (!is_array($data['list'])) {
+            return new JsonResponse(['error' => 'Ошибка данных (список товаров)']);
+        } else {
+            $orderList = array_column($data['list'], 'id');
+        }
+
         $data['list'] = json_encode($data['list']);
 
         $orderSim = new OrderSim();
@@ -173,14 +179,19 @@ class ApiController extends Controller
         $validator = $this->get('validator');
         $errors = $validator->validate($orderSim);
 
-        if (count($errors) > 0) {
-            $errorsString = (string) $errors;
+        if (count($errors) > 0 ) {
+            $errorsString = $this->get('custom.utils')->errorsToString($errors);
             return new JsonResponse(['error' => $errorsString]);
         } else {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($orderSim);
             $em->flush();
+
+            $this
+                ->getDoctrine()
+                ->getRepository('AppBundle:Product')
+                ->updateProductsById($orderList)
+            ;
             return new JsonResponse(['data' => 'data are saved'], 200);
         }
     }

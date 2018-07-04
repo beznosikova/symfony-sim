@@ -89,4 +89,20 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->getResult()
         ;
     }
+
+    public function updateProductsById($ids)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager
+            ->createQueryBuilder()
+            ->update('AppBundle\Entity\Product', 'p')
+            ->set('p.reserve', ':reserve')
+                ->setParameter('reserve', '1')
+            ->where('p.id IN (:ids)')
+                ->setParameter('ids', $ids)
+            ->getQuery()
+        ;
+
+        return $query->getResult();
+    }
 }

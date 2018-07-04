@@ -43,6 +43,10 @@ services:
         class: AppBundle\Service\CustomNormalizer
         public: true
 
+    custom.utils:
+        class: AppBundle\Service\CustomUtils
+        public: true
+
     # Admin sonata
     admin.category:
         class: AppBundle\Admin\CategoryAdmin

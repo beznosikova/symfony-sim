@@ -81,7 +81,7 @@ class OrderSim
      * @ORM\Column(name="phone", type="string", length=20, nullable=true)
      *
      * @Assert\Regex(
-     *     pattern="/^\(\d{3}\)-\d{3}-\d{2}-\d{2}$/",
+     *     pattern="/^[\s+0-9()-]{10,18}$/",
      *     message="Не допустимый формат телефона, правильно (067)-777-77-77"
      * )
      */
