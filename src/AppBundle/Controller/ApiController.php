@@ -201,13 +201,7 @@ class ApiController extends Controller
      */
     public function apiFeedback(Request $request, SerializerInterface $serializer)
     {
-//        $data = json_decode($request->getContent(), true);
-        $data = [
-            "name" => "Kolya",
-            "email" => "Kolya@rambler.ru",
-            "message" => "Kolya hhhh.hhhret ert ert ert ert ert ert ert ertert",
-        ];
-
+        $data = json_decode($request->getContent(), true);
         $feedback = new Feedback();
         $form = $this->createForm(FeedbackType::class, $feedback);
         $form->submit($data);

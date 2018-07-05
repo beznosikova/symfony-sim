@@ -41,15 +41,6 @@ class ProductController extends Controller
             throw $this->createNotFoundException();
         }
 
-//        $provider = $this->container->get('sonata.media.provider.file');
-//        $media = $product->getImage();
-
-//        dump($provider->getReferenceImage($media));
-//        dump($provider->getReferenceFile($media));
-//        dump($provider->generatePublicUrl($media, 'reference'));
-//        dump($provider->getHelperProperties($media, 'reference'));
-//        dump($provider->getCdn());
-
         return compact('product');
     }
 

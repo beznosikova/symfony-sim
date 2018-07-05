@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{{ asset('favicon.ico') }}">
+
+    <title>{% block title %}Золотые и красивые номера телефонов {% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    {% block stylesheets %}{% endblock %}
+    <link href="{{ asset('/bundles/app/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('/bundles/app/css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+
+<main role="main">
+
+    {% block slider %}{% endblock %}
+
+    <div class="container marketing">
+        <div class="row">
+            {% for flash in app.session.flashbag.get('success')%}
+                <div class="alert alert-success">{{ flash }}</div>
+            {% endfor %}
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+
+    {% block featurette %}{% endblock %}
+    <!-- FOOTER -->
+    <footer class="container">
+        <p>Gold-sim &copy;&nbsp;	<span>2014 &ndash;<script>document.write(new Date().getFullYear());</script></span></p>
+    </footer>
+</main>
+</body>
+</html>

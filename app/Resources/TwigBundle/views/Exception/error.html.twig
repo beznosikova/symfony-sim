@@ -1,12 +1,14 @@
-{% extends '@App/layout.html.twig' %}
+{% extends '@App/main.html.twig' %}
+
+{% block title %}{{ parent() }}- Ошибка на странице{% endblock %}
 
 {% block body %}
 <div class="col-md-12">
-    <h1 class="featurette-heading">Error on page</h1>
+    <h1 class="featurette-heading">Ошибка на странице</h1>
 
     <p class="alert alert-danger">
-        Error status {{ status_code }}
-        <a href="{{ path('homepage') }}">return to the homepage</a>.
+        Статус ошибки {{ status_code }}
+        <a href="{{ path('homepage') }}">вернуться на главную</a>.
     </p>
 </div>
 {% endblock %}
