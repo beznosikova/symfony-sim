@@ -20,3 +20,15 @@ default: По умолчанию
 
 Main Category: Главная категория
 Main Category Title: Главная категория
+
+#--------------
+OrderSim: Заказы
+Order Sim List: Список заказов
+Done: Выполнен
+
+#-------------
+Created: Создано
+Name: Имя
+Email: E-mail
+Message: Сообщение
+Feedback List: Список сообщений

@@ -175,10 +175,18 @@ class OrderSim
      */
     private $notes;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
     public function __construct()
     {
         $this->active = true;
         $this->done = false;
+        $this->created = new \DateTime();
     }
 
     /**
@@ -525,5 +533,29 @@ class OrderSim
     public function getDelivery()
     {
         return $this->delivery;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return OrderSim
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
     }
 }

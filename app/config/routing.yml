@@ -18,6 +18,10 @@ fos_user_security_login:
     path:      /account/login/
     defaults:  { _controller: FOSUserBundle:Security:login, _method: POST }
 
+fos_user_security_logout:
+    path:      /account/logout/
+    defaults:  { _controller: FOSUserBundle:Security:logout, _method: POST }
+
 gallery:
     resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
     prefix: /media/gallery

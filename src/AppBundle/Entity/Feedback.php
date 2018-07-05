@@ -64,13 +64,13 @@ class Feedback
      */
     private $message;
 
+
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="created", type="datetime")
      */
     private $created;
-
     public function __construct()
     {
         $this->created = new \DateTime();

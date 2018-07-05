@@ -24,7 +24,8 @@ security:
                 use_forward:    false
                 check_path:     fos_user_security_check
                 failure_path:   null
-            logout:       true
+            logout:
+                path:           fos_user_security_logout
             anonymous:    true
 
     access_control:

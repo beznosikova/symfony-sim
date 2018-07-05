@@ -159,11 +159,12 @@ class ApiController extends Controller
 
     /**
      * @Route("/api/order/")
-     * @Method({"OPTIONS", "POST"})
+     * @Method({"OPTIONS", "POST", "GET"})
      */
     public function apiOrder(Request $request, SerializerInterface $serializer)
     {
         $data = json_decode($request->getContent(), true);
+
         if (!is_array($data['list'])) {
             return new JsonResponse(['error' => 'Ошибка данных (список товаров)']);
         } else {
