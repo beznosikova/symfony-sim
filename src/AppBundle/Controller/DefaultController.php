@@ -29,7 +29,12 @@ class DefaultController extends Controller
     */
 
     /**
-     * @Route("/", name="homepage")
+     * @Route(
+     *     "/{reactRouting}",
+     *     name="homepage",
+     *     requirements={"reactRouting"="^(?!admin|account|login_check|api).+"},
+     *     defaults={"reactRouting": null}
+     *     )
      */
     public function reactAction()
     {

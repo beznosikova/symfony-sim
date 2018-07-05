@@ -60,7 +60,9 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         return $this
             ->createQueryBuilder('product')
             ->where('product.active = :active')
-            ->setParameter('active', 1)
+                ->setParameter('active', 1)
+            ->andWhere('product.reserve = :nr')
+                ->setParameter('nr', 0)
             ->andWhere('product.title LIKE :searchWord')
             ->setParameter('searchWord', '%'.$searchWord.'%')
             ->orderBy('product.'.$sortName, strtoupper($sortDirection))
